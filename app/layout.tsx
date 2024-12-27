@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
+import { Geist, Azeret_Mono as Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import Provider from "@/components/Provider";
+import "@/styles/globals.css";
 const geistSans = Geist({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
+  variable: "--font-sans",
 });
-
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +23,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ colorScheme: "dark" }}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        {children}
+        <Provider session={null}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );
