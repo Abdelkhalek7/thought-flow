@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Azeret_Mono as Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import Navbar from "@/components/Navbar";
 import Provider from "@/components/Provider";
 import "@/styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
 const geistSans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -28,14 +30,16 @@ export default function RootLayout({
         style={{ colorScheme: "dark" }}
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <Provider session={null}>
+        <Provider>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
+            <Navbar />
             {children}
+            <Toaster />
           </ThemeProvider>
         </Provider>
       </body>
