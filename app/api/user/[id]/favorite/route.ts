@@ -4,8 +4,11 @@ import { connectToDB } from "@/utils/database";
 import Quote from "@/models/quote";
 import User from "@/models/user";
 
-export const GET = async ({ params }: { params: { id: string } }) => {
-  const { id } = params; // User ID
+export const GET = async (
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) => {
+  const id = (await params).id; // Quote ID
 
   try {
     // Connect to the database

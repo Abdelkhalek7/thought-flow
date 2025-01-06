@@ -5,9 +5,9 @@ import Quote from "@/models/quote";
 
 export const PUT = async (
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
-  const { id } = params; // Quote ID
+  const id = (await params).id; // Quote ID
   console.log("🚀 ~ id:", id);
   const { userId } = await request.json(); // User ID from the request body
   console.log("🚀 ~ userId:", userId);
